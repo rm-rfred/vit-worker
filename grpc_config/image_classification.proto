@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package classification;
+
+// A candidate image for IMAGECLASSIFICATION extraction.
+message ImageClassificationCandidate {
+    // binaries of the openCV image.
+    bytes image = 1;
+}
+
+// The detected text of the requested image candidate.
+message ImageClassificationResult {
+    // text detected on the image
+    string text = 1;
+}
+
+// Service to perform IMAGECLASSIFICATION over image.
+service IMAGECLASSIFICATION {
+    // Determines the text on an input image
+    rpc Detect (ImageClassificationCandidate) returns (ImageClassificationResult) {}
+}
