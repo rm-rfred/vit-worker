@@ -9,3 +9,9 @@ services:
     restart: always
     volumes:
       - /srv/docker/image-classification-worker/logs:/logs
+    healthcheck:
+      test: "python3.10 -m vit_worker_client.client.grpc_client"
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
