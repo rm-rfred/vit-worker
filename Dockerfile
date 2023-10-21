@@ -1,18 +1,33 @@
 FROM ubuntu:20.04
 
-ENV DEBIAN_FRONTEND noninteractive
+WORKDIR /app
 
-RUN apt update && apt install -y wget python3.8 python3-pip python3-dev
+ENV DEBIAN_FRONTEND noninteractive
+ENV PYTHONPATH .
+
+RUN apt-get update && apt-get install -y software-properties-common
+RUN add-apt-repository 'ppa:deadsnakes/ppa' 
+RUN apt update && apt install -y wget python3.10 python3.10-dev
+
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python3.10 get-pip.py
+
+# Clean up the downloaded script
+RUN rm get-pip.py
 
 # OpenCV requirements
-RUN python3.8 -m pip install --upgrade pip
-RUN apt update && apt install -y libsm6 libxext6 libxrender-dev libgl1-mesa-glx libglib2.0-0 libxrender1
+RUN python3.10 -m pip install --upgrade pip==23.3
 
 # gRPC healthcheck
 RUN wget https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_x86_64.tar.gz -O /grpcurl.tar.gz
 RUN tar -xvzf /grpcurl.tar.gz
 RUN chmod +x grpcurl && mv grpcurl /usr/local/bin/grpcurl && rm /grpcurl.tar.gz
 
-COPY ./requirements.txt /requirements.txt
+COPY ./requirements.txt /app/requirements.txt
 
-RUN python3.8 -m pip install --upgrade pip && python3.8 -m pip install -r /requirements.txt
+RUN python3.10 -m pip install -r /app/requirements.txt
+
+COPY ./vit_worker /app/vit_worker/
+COPY ./vit_worker_client /app/vit_worker_client/
+
+CMD ["python3.10", "-m", "vit_worker.server.grpc_server"]

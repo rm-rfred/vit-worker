@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package image_classification;
+
+service ImageClassificationService {
+    rpc ApplyImageClassification (ImageClassificationRequest) returns (ImageClassificationReply) {}
+}
+
+message ImageClassificationRequest {
+    bytes image = 1;
+}
+
+message ImageClassificationReply {
+    string predicted_class = 1;
+}
