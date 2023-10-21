@@ -39,14 +39,13 @@ class GrpcClient:
         )
         stub = image_classification_pb2_grpc.ImageClassificationServiceStub(channel)
 
-        image=pickle.loads(image)
         response = stub.ApplyImageClassification(
             image_classification_pb2.ImageClassificationRequest(
-                image=image,
+                image=pickle.dumps(image),
                 timeout=timeout
             )
         )
-        return response.text
+        return response.predicted_class
 
 
 if __name__ == "__main__":
