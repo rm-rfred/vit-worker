@@ -17,7 +17,9 @@ docker-compose up -d
 - High load APIs
 - Better suited for real time / streaming apps
 
-If you want to learn more about gRPC, check out the [site](https://grpc.io/)
+## How does gRPC work ?
+
+![gRPC](https://github.com/ByteByteGoHq/system-design-101/blob/main/images/grpc.jpg?raw=True)
 
 ## Dependencies
 
