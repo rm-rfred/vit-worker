@@ -1,4 +1,4 @@
-# gRPC image classification server
+# gRPC image classification worker
 
 A python gRPC worker serving vit-base-patch16-224 model.
 
@@ -10,6 +10,14 @@ cd vit-worker
 docker-compose build
 docker-compose up -d
 ```
+
+## Why gRPC instead of REST ?
+
+- Higher performances
+- High load APIs
+- Better suited for real time / streaming apps
+
+If you want to learn more about gRPC, check out the [site](https://grpc.io/)
 
 ## Dependencies
 
