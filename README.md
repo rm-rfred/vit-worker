@@ -23,8 +23,8 @@ docker-compose up -d
 
 ## Dependencies
 
-Docker version 24.0.6, build ed223bc
-Docker Compose version v2.23.0
+Docker version **24.0.6**, build ed223bc
+Docker Compose version **v2.23.0**
 
 ### Config files
 
