@@ -14,6 +14,7 @@ docker-compose up -d
 ## Why gRPC instead of REST ?
 
 - Higher performances
+- Ideal for microservice architecture
 - High load APIs
 - Better suited for real time / streaming apps
 
