@@ -41,9 +41,8 @@ class GrpcClient:
 
         response = stub.ApplyImageClassification(
             image_classification_pb2.ImageClassificationRequest(
-                image=pickle.dumps(image),
-                timeout=timeout
-            )
+                image=pickle.dumps(image)
+            ), timeout=timeout
         )
         return response.predicted_class
 
