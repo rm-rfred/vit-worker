@@ -17,6 +17,7 @@ RUN rm get-pip.py
 
 # OpenCV requirements
 RUN python3.10 -m pip install --upgrade pip==23.3
+RUN apt update && apt install -y libsm6 libxext6 libxrender-dev libgl1-mesa-glx
 
 # gRPC healthcheck
 RUN wget https://github.com/fullstorydev/grpcurl/releases/download/v1.8.2/grpcurl_1.8.2_linux_x86_64.tar.gz -O /grpcurl.tar.gz
