@@ -14,7 +14,7 @@ from vit_worker_client.config import image_classification_pb2, image_classificat
 
 
 class ImageClassificationService(image_classification_pb2_grpc.ImageClassificationServiceServicer):
-    def ApplyImageClassification(self, request):
+    def ApplyImageClassification(self, request, context):
         try:
             image = pickle.loads(request.image)
             processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224')
@@ -27,6 +27,7 @@ class ImageClassificationService(image_classification_pb2_grpc.ImageClassificati
             predicted_class = model.config.id2label[predicted_class_idx]
             return image_classification_pb2.ImageClassificationReply(predicted_class=predicted_class)
         except Exception as e:
+            logger.error(e)
             return image_classification_pb2.ImageClassificationReply(predicted_class="")
 
 def serve():
