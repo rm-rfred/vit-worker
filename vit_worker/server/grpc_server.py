@@ -1,7 +1,9 @@
 from concurrent import futures
 import pickle
 
+import cv2
 import grpc
+import numpy as np
 from simber import Logger
 from transformers import ViTImageProcessor, ViTForImageClassification
 
@@ -16,11 +18,13 @@ from vit_worker_client.config import image_classification_pb2, image_classificat
 class ImageClassificationService(image_classification_pb2_grpc.ImageClassificationServiceServicer):
     def ApplyImageClassification(self, request, context):
         try:
-            image = pickle.loads(request.image)
+            img = np.array(request.image)
+
+            img_rgb = cv2.cvtColor(pickle.loads(img), cv2.COLOR_BGR2RGB)
             processor = ViTImageProcessor.from_pretrained('google/vit-base-patch16-224')
             model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224')
 
-            inputs = processor(images=image, return_tensors="pt")
+            inputs = processor(images=img_rgb, return_tensors="pt")
             outputs = model(**inputs)
             logits = outputs.logits
             predicted_class_idx = logits.argmax(-1).item()

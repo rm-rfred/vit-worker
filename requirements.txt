@@ -1,5 +1,6 @@
 grpcio==1.59.0
 grpcio-tools==1.59.0
+numpy==1.26.1
 protobuf==4.24.4
 prompt-toolkit==3.0.19
 traitlets==5.11.2
