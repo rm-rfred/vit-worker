@@ -1,6 +1,6 @@
 # gRPC Vision Transformer worker
 
-A python gRPC worker serving a **Vision Transformer** model: vit-base-patch16-224.
+A python gRPC worker serving a **Vision Transformer** model: vit-base-patch16-224 available on [Hugging Face](https://huggingface.co/docs/transformers/model_doc/vit) :hugs:
 
 ## What is a Vision Transformer ?
 
